@@ -62,7 +62,7 @@ def calculate_guesses(password):
 
             if password == line.strip():
                 return guessCount
-
+        return -1
 
 def main():
     # loop through json dict and then update with entropy values
