@@ -1,12 +1,22 @@
 import math
+import subprocess
+
+# List of different attacks
+hashcats = [
+    ["hashcat", "-a", "3", "?a?a?a?a?a?a?a?a", "--increment", "--stdout"], # Brute force
+    ["hashcat", "--stdout", "resources/wordlists/rockyou.txt", "-r", "resources/rules/OneRuleToRuleThemStill.rule"] #Rock you w/ OneRuleToRuleThemAll
+]
+
 
 def calculate_entropy(password):
     # Define the character sets
     lowercase = "abcdefghijklmnopqrstuvwxyz"
     uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     digits = "0123456789"
-    special_characters = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~"  # Common special characters
-    
+    special_characters = (
+        "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~"  # Common special characters
+    )
+
     # Determine character set based on password content
     charset_size = 0
     if any(char in lowercase for char in password):
@@ -17,16 +27,47 @@ def calculate_entropy(password):
         charset_size += len(digits)
     if any(char in special_characters for char in password):
         charset_size += len(special_characters)
-    
+
     # Calculate entropy per character
     if charset_size == 0:
         return 0  # No valid characters found
     entropy_per_char = math.log2(charset_size)
-    
+
     # Total entropy
     total_entropy = entropy_per_char * len(password)
-    
+
     return total_entropy
 
+
+def calculate_guesses(password):
+    guessCount = 0
+
+    for hashcat in hashcats:
+        # Start the subprocess
+        process = subprocess.Popen(
+            hashcat,  # Example command
+            stdout=subprocess.PIPE,  # Capture the output
+            stderr=subprocess.PIPE,  # Capture the error (optional)
+            text=True,  # Decode output as text (Python 3.7+)
+        )
+
+        # Read stdout in real-time
+        for line in process.stdout:
+            guessCount += 1
+            # print(line, end="")  # Print the output in real-time
+            # print(str(guessCount) + "   " + password)
+
+            if guessCount % 10000000 == 0:
+                print("\r" + str(guessCount) + "   " + password + str(hashcat), end="")
+
+            if password == line.strip():
+                return guessCount
+
+
 def main():
-    #loop through json dict and then update with entropy values
+    # loop through json dict and then update with entropy values
+    print(calculate_guesses("123456789"))
+
+
+if __name__ == "__main__":
+    main()
