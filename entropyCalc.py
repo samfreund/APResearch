@@ -1,10 +1,11 @@
 import math
 import subprocess
+import asyncio
 
 # List of different attacks
 hashcats = [
-    ["hashcat", "-a", "3", "?a?a?a?a?a?a?a?a", "--increment", "--stdout"], # Brute force
-    ["hashcat", "--stdout", "resources/wordlists/rockyou.txt", "-r", "resources/rules/OneRuleToRuleThemStill.rule"] #Rock you w/ OneRuleToRuleThemAll
+    ["hashcat", "-m", "99999", "--outfile-format", "1,4", "-o", "out.txt", "--potfile-disable", "-a", "3", "?a?a?a?a?a?a?a?a", "--increment"], # Brute force
+    ["hashcat", "-m", "99999", "--outfile-format", "1,4", "-o", "out.txt", "--potfile-disable", "resources/wordlists/rockyou.txt", "-r", "resources/rules/OneRuleToRuleThemStill.rule"] #Rock you w/ OneRuleToRuleThemAll
 ]
 
 
@@ -39,7 +40,7 @@ def calculate_entropy(password):
     return total_entropy
 
 
-def calculate_guesses(password):
+# def calculate_guesses(password):
     guessCount = 0
 
     for hashcat in hashcats:
@@ -57,7 +58,7 @@ def calculate_guesses(password):
             # print(line, end="")  # Print the output in real-time
             # print(str(guessCount) + "   " + password)
 
-            if guessCount % 10000000 == 0:
+            if guessCount % 1000000000 == 0:
                 print("\r" + str(guessCount) + "   " + password + str(hashcat), end="")
 
             if password == line.strip():
@@ -66,7 +67,7 @@ def calculate_guesses(password):
 
 def main():
     # loop through json dict and then update with entropy values
-    print(calculate_guesses("123456789"))
+    calculate_entropy("password")
 
 
 if __name__ == "__main__":
