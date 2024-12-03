@@ -1,12 +1,41 @@
 import math
 import subprocess
-import asyncio
 
 # List of different attacks
 hashcats = [
-    ["hashcat", "-m", "99999", "--outfile-format", "1,4", "-o", "out.txt", "--potfile-disable", "-a", "3", "?a?a?a?a?a?a?a?a", "--increment"], # Brute force
-    ["hashcat", "-m", "99999", "--outfile-format", "1,4", "-o", "out.txt", "--potfile-disable", "resources/wordlists/rockyou.txt", "-r", "resources/rules/OneRuleToRuleThemStill.rule"] #Rock you w/ OneRuleToRuleThemAll
+    [
+        "hashcat",
+        "-m",
+        "99999",
+        "/home/sam/gitClones/APResearch/resources/hashes/hashes.txt",
+        "--outfile-format",
+        "1,2,4",
+        "-o",
+        "/home/sam/gitClones/APResearch/resources/hashes/out.txt",
+        "-a",
+        "3",
+        "?a?a?a?a?a?a?a?a",
+        "--increment",
+    ],  # Brute force
+    [
+        "hashcat",
+        "-m",
+        "99999",
+        "/home/sam/gitClones/APResearch/resources/hashes/hashes.txt",
+        "--outfile-format",
+        "1,2,4",
+        "-o",
+        "/home/sam/gitClones/APResearch/resources/hashes/out.txt",
+        "/home/sam/gitClones/APResearch/resources/wordlists/rockyou.txt",
+        "-r",
+        "/home/sam/gitClones/APResearch/resources/rules/OneRuleToRuleThemStill.rule",
+    ],  # Rock you w/ OneRuleToRuleThemAll
 ]
+
+
+def calculate_guesses():
+    for hashcat in hashcats:
+        subprocess.run(hashcat)
 
 
 def calculate_entropy(password):
@@ -39,8 +68,7 @@ def calculate_entropy(password):
 
     return total_entropy
 
-
-# def calculate_guesses(password):
+    # def calculate_guesses(password):
     guessCount = 0
 
     for hashcat in hashcats:
@@ -65,9 +93,11 @@ def calculate_entropy(password):
                 return guessCount
         return -1
 
+
 def main():
     # loop through json dict and then update with entropy values
-    calculate_entropy("password")
+    calculate_entropy("heyo")
+    calculate_guesses()
 
 
 if __name__ == "__main__":
