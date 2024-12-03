@@ -1,0 +1,4 @@
+rockyou: https://cdn.hashmob.net/wordlists/rockyou.txt
+
+OneRuleToRuleThemStill: https://raw.githubusercontent.com/stealthsploit/OneRuleToRuleThemStill/refs/heads/main/OneRuleToRuleThemStill.rule
+

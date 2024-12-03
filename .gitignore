@@ -1,4 +1,3 @@
-resources/rules/*
-resources/wordlists/*
+resources/*
 
 data/*

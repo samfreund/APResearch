@@ -1,5 +1,8 @@
 import math
 import subprocess
+import json
+
+#ENSURE THAT ALL PATHS ARE MODIFIED TO ACCURATELY REFLECT LOCATIONS ON YOUR MACHINE
 
 # List of different attacks
 hashcats = [
@@ -7,11 +10,11 @@ hashcats = [
         "hashcat",
         "-m",
         "99999",
-        "/home/sam/gitClones/APResearch/resources/hashes/hashes.txt",
+        "/home/samf/gitClones/APResearch/resources/hashes/hashes.txt",
         "--outfile-format",
         "1,2,4",
         "-o",
-        "/home/sam/gitClones/APResearch/resources/hashes/out.txt",
+        "/home/samf/gitClones/APResearch/resources/hashes/out.txt",
         "-a",
         "3",
         "?a?a?a?a?a?a?a?a",
@@ -21,14 +24,14 @@ hashcats = [
         "hashcat",
         "-m",
         "99999",
-        "/home/sam/gitClones/APResearch/resources/hashes/hashes.txt",
+        "/home/samf/gitClones/APResearch/resources/hashes/hashes.txt",
         "--outfile-format",
         "1,2,4",
         "-o",
-        "/home/sam/gitClones/APResearch/resources/hashes/out.txt",
-        "/home/sam/gitClones/APResearch/resources/wordlists/rockyou.txt",
+        "/home/samf/gitClones/APResearch/resources/hashes/out.txt",
+        "/home/samf/gitClones/APResearch/resources/wordlists/rockyou.txt",
         "-r",
-        "/home/sam/gitClones/APResearch/resources/rules/OneRuleToRuleThemStill.rule",
+        "/home/samf/gitClones/APResearch/resources/rules/OneRuleToRuleThemStill.rule",
     ],  # Rock you w/ OneRuleToRuleThemAll
 ]
 
@@ -70,10 +73,26 @@ def calculate_entropy(password):
 
 
 def main():
-    # loop through json dict and then update with entropy values
-    calculate_entropy("heyo")
+    data = json.load(open("/home/samf/gitClones/APResearch/data/output.json"))
+    
+    for datum in data:
+        for key in datum["Passwords"]:
+            password = datum["Passwords"][key]["Password"]
+            print(password)
+            entropy = calculate_entropy(password)
+            datum["Passwords"][key]["Entropy"] = entropy
+            with open("/home/samf/gitClones/APResearch/resources/hashes/hashes.txt", mode="a") as hash_file:
+                hash_file.write(password + "\n")
+            
+    
+
     calculate_guesses()
 
+
+    json_data = json.dumps(data, indent=4)
+
+    with open("/home/samf/gitClones/APResearch/data/output.json", mode="w") as json_file:
+        json_file.write(json_data)
 
 if __name__ == "__main__":
     main()
