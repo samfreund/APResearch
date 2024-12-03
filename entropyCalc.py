@@ -68,31 +68,6 @@ def calculate_entropy(password):
 
     return total_entropy
 
-    # def calculate_guesses(password):
-    guessCount = 0
-
-    for hashcat in hashcats:
-        # Start the subprocess
-        process = subprocess.Popen(
-            hashcat,  # Example command
-            stdout=subprocess.PIPE,  # Capture the output
-            stderr=subprocess.PIPE,  # Capture the error (optional)
-            text=True,  # Decode output as text (Python 3.7+)
-        )
-
-        # Read stdout in real-time
-        for line in process.stdout:
-            guessCount += 1
-            # print(line, end="")  # Print the output in real-time
-            # print(str(guessCount) + "   " + password)
-
-            if guessCount % 1000000000 == 0:
-                print("\r" + str(guessCount) + "   " + password + str(hashcat), end="")
-
-            if password == line.strip():
-                return guessCount
-        return -1
-
 
 def main():
     # loop through json dict and then update with entropy values
