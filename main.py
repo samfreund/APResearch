@@ -1,6 +1,8 @@
 import entropyCalc
 import guessCalc
 import json
+import averager
+import grapher
 
 # ENSURE THAT ALL PATHS ARE MODIFIED TO ACCURATELY REFLECT LOCATIONS ON YOUR MACHINE
 
@@ -35,6 +37,7 @@ def main():
     ) as json_file:
         json_file.write(json_data)
 
+    averager(DATA_LOC)
 
 if __name__ == "__main__":
     main()

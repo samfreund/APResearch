@@ -39,6 +39,7 @@ def csv_to_json(csv_file_path, json_file_path):
         for key in datum["Passwords"]:
             datum["Passwords"][key]["Cracked"] = False
             datum["Passwords"][key]["Guesses"] = 0
+            datum["Passwords"][key]["Entropy"] = 0
 
     # Convert the list of dictionaries to a JSON string
     json_data = json.dumps(data, indent=4)
