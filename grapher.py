@@ -15,9 +15,9 @@ def main(dataLoc):
 
     #Graph 3: Pie chart of cracked vs uncracked passwords
 
-    #Graph 4: Bar graph comparing number of cracked passwords for different GPAs
+    #Graph 4: Segmented bar graph comparing number of cracked passwords for different GPAs
 
-    #Graph 5: Bar graph comparing number of cracked passwords for different grades
+    #Graph 5: Segmented bar graph comparing number of cracked passwords for different grades
 
     #Graph 1
     entropy = []
@@ -74,38 +74,36 @@ def main(dataLoc):
     #Graph 4
     crackedGPAs = {}
     for datum in data:
-        if datum["Grade"] not in crackedGPAs:
-            crackedGPAs[datum["Grade"]] = 0
+        if datum["GPA"] not in crackedGPAs:
+            crackedGPAs[datum["GPA"]] = 0
         for key in datum["Passwords"]:
             if datum["Passwords"][key]["Cracked"]:
-                crackedGPAs[datum["Grade"]] += 1
-    #Create bar graph
+                crackedGPAs[datum["GPA"]] += 1
+    #Create segmented bar graph
     fig, ax = plt.subplots()
     ax.bar(crackedGPAs.keys(), crackedGPAs.values())
-    ax.set_xlabel("Grade")
-    ax.set_ylabel("Cracked Passwords")
-    ax.set_title("Cracked Passwords by GPA")
-    ax.grid(True)
-    fig.savefig("data/graphs/bargraphGPA.png")
-
-    #Graph 5
-    crackedGrades = {}
-    for datum in data:
-        if datum["GPA"] not in crackedGrades:
-            crackedGrades[datum["GPA"]] = 0
-        for key in datum["Passwords"]:
-            if datum["Passwords"][key]["Cracked"]:
-                crackedGrades[datum["GPA"]] += 1
-    #Create bar graph
-    fig, ax = plt.subplots()
-    ax.bar(crackedGrades.keys(), crackedGrades.values())
     ax.set_xlabel("GPA")
     ax.set_ylabel("Cracked Passwords")
     ax.set_title("Cracked Passwords by GPA")
     ax.grid(True)
-    fig.savefig("data/graphs/bargraphGPA.png")
+    fig.savefig("data/graphs/barGPA.png")
 
-
+    #Graph 5
+    crackedGrades = {}
+    for datum in data:
+        if datum["Grade"] not in crackedGrades:
+            crackedGrades[datum["Grade"]] = 0
+        for key in datum["Passwords"]:
+            if datum["Passwords"][key]["Cracked"]:
+                crackedGrades[datum["Grade"]] += 1
+    #Create segmented bar graph
+    fig, ax = plt.subplots()
+    ax.bar(crackedGrades.keys(), crackedGrades.values())
+    ax.set_xlabel("Grade")
+    ax.set_ylabel("Cracked Passwords")
+    ax.set_title("Cracked Passwords by Grade")
+    ax.grid(True)
+    fig.savefig("data/graphs/barGrade.png")
 
 
 if __name__ == "__main__":
