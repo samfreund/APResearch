@@ -38,7 +38,7 @@ GUESSES_PER_HASHCAT = [1, 2]  # TODO: Update with actual guesses per hashcat
 
 def main(dataLoc):
     for hashcat in HASHCATS:
-        subprocess.run(hashcat)
+        subprocess.run(hashcat, check=True)
 
         #TODO: Make this work
         with open(
