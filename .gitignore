@@ -2,4 +2,4 @@ resources/*
 
 data/*
 
-!data/graphs
+__pycache__/*

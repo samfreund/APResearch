@@ -21,14 +21,14 @@ def main():
     for datum in data:
         for key in datum["Passwords"]:
             password = datum["Passwords"][key]["Password"]
-            entropy = entropyCalc(password)
+            entropy = entropyCalc.main(password)
             datum["Passwords"][key]["Entropy"] = entropy
             with open(
                 HASH_LOC, mode="a"
             ) as hash_file:
                 hash_file.write(password + "\n")
 
-    guessCalc()
+    guessCalc.main(DATA_LOC)
 
     json_data = json.dumps(data, indent=4)
 
@@ -37,7 +37,7 @@ def main():
     ) as json_file:
         json_file.write(json_data)
 
-    averager(DATA_LOC)
+    averager.main(DATA_LOC)
 
 if __name__ == "__main__":
     main()

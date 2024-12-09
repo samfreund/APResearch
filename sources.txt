@@ -1,3 +1,5 @@
 OneRuleToRuleThemStill: https://raw.githubusercontent.com/stealthsploit/OneRuleToRuleThemStill/refs/heads/main/OneRuleToRuleThemStill.rule
 
-Hashmob Combined Full: https://hashmob.net/api/v2/downloads/research/official/hashmob.net_2024-12-01.found.7z
+Hashmob Combined Full: https://hashmob.net/api/v2/downloads/research/official/hashmob.net_2024-12-08.found.7z  DATE MAY NEED TO BE UPDATED
+
+Rock You Breach: https://cdn.hashmob.net/wordlists/rockyou.txt
