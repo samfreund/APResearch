@@ -38,6 +38,7 @@ def main():
         json_file.write(json_data)
 
     averager.main(DATA_LOC)
+    grapher.main(DATA_LOC)
 
 if __name__ == "__main__":
     main()
