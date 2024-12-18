@@ -32,6 +32,19 @@ HASHCATS = [
         "-r",
         "/home/samf/gitClones/APResearch/resources/rules/OneRuleToRuleThemStill.rule",
     ],  # Rock you w/ OneRuleToRuleThemAll
+    [
+        "hashcat",
+        "-m",
+        "99999",
+        "/home/samf/gitClones/APResearch/resources/hashes/hashes.txt",
+        "--outfile-format",
+        "1,4",
+        "-o",
+        "/home/samf/gitClones/APResearch/resources/hashes/out.txt",
+        "/home/samf/gitClones/APResearch/resources/wordlists/hashmob.found.txt",
+        "-r",
+        "/home/samf/gitClones/APResearch/resources/rules/OneRuleToRuleThemStill.rule",
+    ],  # Hashmob w/ OneRuleToRuleThemAll
 ]
 GUESSES_PER_HASHCAT = [1, 2]  # TODO: Update with actual guesses per hashcat
 
