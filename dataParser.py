@@ -21,6 +21,9 @@ def csv_to_json(csv_file_path, json_file_path):
         # Convert the CSV data to a list of dictionaries
         data = [row for row in csv_reader]
 
+    # Remove the first dictionary (header row)
+    data.pop(0)
+
     for datum in data:
         # Delete date and email
         datum.pop("Date")
